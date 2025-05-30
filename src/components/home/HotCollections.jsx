@@ -24,7 +24,51 @@ const HotCollections = () => {
     fetchCollections();
   }, []);
 
+  const NextArrow = ({ className, style, onClick }) => (
+    <div
+      className={`${className} custom-slick-arrow right-[-20px]`}
+      style={{
+        ...style,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "rgba(0,0,0,0.5)",
+        borderRadius: "50%",
+        width: "40px",
+        height: "40px",
+        zIndex: 2,
+      }}
+      onClick={onClick}
+    >
+      <i className="fa fa-chevron-right text-white text-lg" />
+    </div>
+  );
+
+  const PrevArrow = ({ className, style, onClick }) => (
+    <div
+      className={`${className} custom-slick-arrow left-[-20px]`}
+      style={{
+        ...style,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "rgba(0,0,0,0.5)",
+        borderRadius: "50%",
+        width: "40px",
+        height: "40px",
+        zIndex: 2,
+      }}
+      onClick={onClick}
+    >
+      <i className="fa fa-chevron-left text-white text-lg" />
+    </div>
+  );
+
+
   const sliderSettings = {
+    arrows: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     dots: true,
     infinite: true,
     speed: 500,
@@ -51,7 +95,7 @@ const HotCollections = () => {
   };
 
   const renderSkeletons = () => {
-    return Array.form({ length: 4}).map((_, index) => (
+    return Array.from({ length: 4}).map((_, index) => (
       <div key={index} className="nft_coll m-3 animate-pulse">
         <div className="nft_wrap bg-gray-300 h-48 w-full rounded-md"></div>
         <div className="nft_coll_pp mt-3 flex items-center gap-2">
@@ -76,7 +120,8 @@ const HotCollections = () => {
         </div>
         {loading ? (
           <div className="flex gap-4 justify-center">
-            {renderSkeletons()}
+            {renderSkeletons()
+            }
           </div>
         ) : (
           <Slider {...sliderSettings}>
