@@ -154,7 +154,7 @@ const NewItems = () => {
             {items.map((item, index) => (
               <div className="nft__item m-3" key={index}>
                 <div className="author_list_pp">
-                  <Link to="/author" title={`Creator: ${item.author}`}>
+                  <Link to={`/author/${item.authorId}`} title={`Creator: ${item.author}`}>
                     <img className="lazy" src={item.authorImage} alt="" />
                     <i className="fa fa-check"></i>
                   </Link>
