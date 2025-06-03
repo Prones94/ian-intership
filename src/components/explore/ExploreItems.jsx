@@ -7,33 +7,43 @@ const ExploreItems = () => {
   const [items, setItems] = useState([]);
   const [visibleCount, setVisibleCount] = useState(8);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("");
+
+  const fetchExploreItems = async (filterValue = "") => {
+    try {
+      setLoading(true);
+      const url = filterValue
+        ? `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filterValue}`
+        : `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore`;
+      const { data } = await axios.get(url);
+      setItems(data);
+      setVisibleCount(filterValue ? 8 : 8);
+    } catch (err) {
+      console.error("Error fetching explore items:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchExploreItems = async () => {
-      try {
-        const { data } = await axios.get(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore"
-        );
-        setItems(data);
-      } catch (err) {
-        console.error("Error fetching explore items:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchExploreItems();
-  }, []);
+    fetchExploreItems(filter);
+  }, [filter]);
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => prev + 4);
   };
 
-  const visibleItems = items.slice(0, visibleCount);
+  const handleFilterChange = (e) => {
+    const value = e.target.value;
+    setFilter(value);
+  };
+
+  const visibleItems = filter ? items.slice(0, 8) : items.slice(0, visibleCount);
 
   return (
     <>
       <div>
-        <select id="filter-items" defaultValue="">
+        <select id="filter-items" onChange={handleFilterChange} defaultValue="">
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
@@ -95,7 +105,7 @@ const ExploreItems = () => {
         ))
       )}
 
-      {visibleCount < items.length && (
+      {!filter && visibleCount < items.length && (
         <div className="col-md-12 text-center">
           <button onClick={handleLoadMore} id="loadmore" className="btn-main lead">
             Load more
