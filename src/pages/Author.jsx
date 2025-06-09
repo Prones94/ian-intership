@@ -28,8 +28,8 @@ const Author = () => {
 
     fetchAuthor()
   }, [authorId])
-  console.log("Author full data: ", author);
-  // console.log("Author", author.authorImage);
+
+  console.log(author)
 
   const toggleFollow = () => {
     setIsFollowing((prev) => !prev)
@@ -101,7 +101,7 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems authorId={authorId}/>
+                  <AuthorItems author={author} />
                 </div>
               </div>
             </div>
