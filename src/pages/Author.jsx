@@ -91,7 +91,7 @@ const Author = () => {
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
                       <div className="profile_follower">{author.followers} followers</div>
-                      <button className="btn-main">
+                      <button className="btn-main" onClick={toggleFollow}>
                         {isFollowing ? "Unfollow" : "Follow"}
                       </button>
                     </div>
