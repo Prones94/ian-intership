@@ -29,7 +29,6 @@ const Author = () => {
     fetchAuthor()
   }, [authorId])
 
-  console.log(author)
 
   const toggleFollow = () => {
     setIsFollowing((prev) => !prev)
