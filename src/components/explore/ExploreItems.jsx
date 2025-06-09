@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import CountdownTimer from "./CountdownTimer";
+import CountdownTimer from "../CountdownTimer";
 
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
